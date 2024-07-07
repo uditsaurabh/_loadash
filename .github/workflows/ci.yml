@@ -1,0 +1,59 @@
+name: Versioning
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.x
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Run tests
+        run: go test -v ./...
+
+      - name: Bump version and push tag
+        id: tag_version
+        run: |
+          git config --global user.email "uditsaurabh74@gmail.com"
+          git config --global user.name "uditsaurabh"
+
+          # Fetch tags
+          git fetch --tags
+
+          # Get the highest tag number
+          VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
+          echo "Current version: $VERSION"
+
+          # Replace dots with space to increment version numbers
+          VERSION_BITS=(${VERSION//./ })
+
+          # Increment the version number
+          VNUM1=${VERSION_BITS[0]}
+          VNUM2=${VERSION_BITS[1]}
+          VNUM3=${VERSION_BITS[2]}
+          VNUM3=$((VNUM3+1))
+
+          NEW_TAG="$VNUM1.$VNUM2.$VNUM3"
+          echo "New tag will be: $NEW_TAG"
+
+          # Create new tag
+          git tag $NEW_TAG
+
+          # Push the new tag back to the remote repository
+          git push origin $NEW_TAG
+
+      - name: Notify about the new tag
+        run: echo "New version $NEW_TAG has been created and pushed."

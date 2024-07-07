@@ -1,0 +1,73 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Output of the 'go build' command
+*.out
+
+# Go workspace files
+*.test
+*.prof
+*.bench
+
+# Go vendor directory
+vendor/
+
+# IDE and editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# Log files
+*.log
+
+# Environment variable files
+.env
+
+# Dependency directories
+Godeps/
+vendor/
+
+# Build directories
+bin/
+pkg/
+obj/
+
+# Coverage files
+*.cover
+*.cov
+
+# Temporary files
+*.tmp
+*.temp
+
+# Compiled shared objects
+*.o
+*.a
+
+# Editor backup files
+*~
+
+# IntelliJ IDEA project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code project files
+.vscode/
+
+# Emacs project files
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+.#*
+
+# Generated files
+generated/
+gen
